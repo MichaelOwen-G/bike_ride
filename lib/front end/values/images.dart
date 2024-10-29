@@ -1,0 +1,1 @@
+String welcomeBackgroundImage = 'assets/images/handle_bars.jpeg';
