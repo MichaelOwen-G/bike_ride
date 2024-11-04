@@ -19,6 +19,6 @@ class _AuthenticatorWidgetState extends State<AuthenticatorWidget> {
   }
 
   bool checkLoggedIn(){
-    return false;
+    return true;
   }
 }

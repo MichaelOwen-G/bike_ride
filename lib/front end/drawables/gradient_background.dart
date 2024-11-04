@@ -4,28 +4,36 @@ import '../values/colors.dart';
 
 class MyGradientBackground extends StatelessWidget {
   final bool darkMode;
-  const MyGradientBackground({this.darkMode  = true, super.key});
+  final Widget? child;
+  const MyGradientBackground({this.darkMode = true, this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (widget, constraints){
+    return LayoutBuilder(builder: (widget, constraints) {
       return Container(
         height: constraints.maxHeight,
         width: constraints.maxWidth,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: darkMode ? [
-                silver,
-                black,
-              ] : [
-                white,
-                silver,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            stops: const <double>[
+              .6,
+              1,
+            ],
+            colors: darkMode
+                ? [
+                    Colors.black.withAlpha(170),
+                    Colors.black12,
+                  ]
+                : [
+                    silver,
+                    white,
+                  ],
+          ),
         ),
+        child: child,
       );
     });
-
   }
 }

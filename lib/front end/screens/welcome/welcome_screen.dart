@@ -1,3 +1,5 @@
+import 'package:bike_ride/front%20end/drawables/bike_ride_logo/bike_ride_logo.dart';
+import 'package:bike_ride/front%20end/drawables/gradient_background.dart';
 import 'package:bike_ride/front%20end/values/images.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +11,13 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-
-  void _quickRegister(){
+  void _quickRegister() {
     // create quick account
 
     // change loggedIn status
   }
+
+  void _createAccount() {}
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     double maxWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black12,
       body: SafeArea(
           child:
 
@@ -31,32 +34,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         height: maxHeight,
         width: maxWidth,
         decoration: _backgroundDecor(),
-        child: Container(
-            padding: const EdgeInsets.only(bottom: 12),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    stops: const <double>[
-                  .7,
-                  1,
-                ],
-                    colors: <Color>[
-                  Colors.black.withAlpha(140),
-                  Colors.black12,
-                ])),
-            child: Column(
-              children: [
-                // bike ride logo
-                Expanded(child: _bikeRideLogo()),
+        child: MyGradientBackground(
+            child: Column(children: [
+              // bike ride logo
+              const Expanded(child: BikeRideLogo()),
 
-                // information
-                Expanded(flex: 5, child: _bikeRideInfo()),
+              // information
+              Expanded(flex: 7, child: _bikeRideInfo()),
 
-                // find bike button
-                Expanded(flex: 2, child: _findBikeBtn()),
-              ],
-            )),
+              // find bike button
+              Expanded(
+                  flex: 3,
+                  child:
+                        _findBikeBtn()),
+            ])),
       )),
     );
   }
@@ -70,33 +61,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             image: AssetImage(welcomeBackgroundImage)));
   }
 
-  // * bike ride logo
-  Widget _bikeRideLogo() {
-    return Container(
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 18),
-        child: RichText(
-              text: const TextSpan(style: TextStyle(fontSize: 20), children: [
-            TextSpan(
-              text: 'Bike ',
-              style: TextStyle(color: Colors.white),
-            ),
-            TextSpan(
-              text: 'Ride',
-              style: TextStyle(color: Colors.black),
-            )
-          ])),
-        );
-  }
-
   Widget _bikeRideInfo() {
     return Container(
       alignment: Alignment.bottomLeft,
-      padding: const EdgeInsets.only(left: 44, right: 32),
+      padding: const EdgeInsets.only(left: 44),
       child: const SizedBox(
-        width: 160,
+        width: 220,
         child: Text('Bike Rental Services around Juja',
-            style: TextStyle(color: Colors.white, fontSize: 34)),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 28,
+              fontFamily: 'LexendPeta',
+            )),
       ),
     );
   }
@@ -107,11 +83,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         child: FilledButton(
             onPressed: _quickRegister,
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)))),
             child: const Text('Find Bike')));
+  }
+
+  Widget _createAccountBtn() {
+    return Container(
+        alignment: Alignment.center,
+        child: FilledButton(
+            onPressed: _createAccount,
+            style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)))),
+            child: const Text('Create Account')));
   }
 }

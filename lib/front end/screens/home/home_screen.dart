@@ -1,4 +1,15 @@
+import 'package:bike_ride/back%20end/services/rentals_services.dart';
+import 'package:bike_ride/front%20end/drawables/bike_ride_logo/bike_ride_logo.dart';
+import 'package:bike_ride/front%20end/drawables/cyclist_account_logo.dart';
+import 'package:bike_ride/front%20end/drawables/sort_button_bar/sort_button_bar.dart';
 import 'package:flutter/material.dart';
+
+import '../../../back end/models/rental.dart';
+import '../../drawables/gradient_background.dart';
+import '../../values/colors.dart';
+
+part 'home_app_bar.dart';
+part 'home_content_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +21,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      backgroundColor: silver.withAlpha(240),
+      body: const SafeArea(child:
+        // gradient background
+        MyGradientBackground( child:
+
+        // body
+        Column(children: [
+          // app bar
+          Expanded(child: HomeAppBar()),
+
+          // body
+          Expanded(flex: 5, child: HomeContentWidget())
+        ]),
+      ),)
+    );
   }
 }
+
+
+
+

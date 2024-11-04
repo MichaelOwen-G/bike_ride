@@ -1,18 +1,23 @@
 
 
 class Bike {
-  String name;
-  String id;
+  String name, id, bikeModel, bikePicture;
   double rating;
-  List<String> reviews;
-  int payPerHr;
+  int pricePerHour, bookingPrice, bookDuration; // book duration in minutes
+  AvailabilityStatus availabilityStatus;
+  List<int> ratings;
 
   Bike({
     required this.name,
-    required this.id,
+    this.id = '',
     required this.rating,
-    required this.reviews,
-    required this.payPerHr,
+    required this.pricePerHour,
+    required this.bikeModel,
+    required this.bikePicture,
+    required this.availabilityStatus,
+    required this.bookingPrice,
+    required this.bookDuration,
+    required this.ratings,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,8 +25,13 @@ class Bike {
       'name': this.name,
       'id': this.id,
       'rating': this.rating,
-      'reviews': this.reviews,
-      'payPerHr': this.payPerHr,
+      'pricePerHour': this.pricePerHour,
+      'bikeModel': this.bikeModel,
+      'bikePicture': this.bikePicture,
+      'availabilityStatus': this.availabilityStatus.name,
+      'bookingPrice': this.bookingPrice,
+      'bookDuration': this.bookDuration,
+      'ratings': this.ratings,
     };
   }
 
@@ -30,8 +40,21 @@ class Bike {
       name: map['name'] as String,
       id: map['id'] as String,
       rating: map['rating'] as double,
-      reviews: map['reviews'] as List<String>,
-      payPerHr: map['payPerHr'] as int,
+      pricePerHour: map['pricePerHour'] as int,
+      bikeModel: map['bikeModel'] as String,
+      bikePicture: map['bikePicture'] as String,
+      availabilityStatus: AvailabilityStatus.values.byName(map['availabilityStatus']),
+      bookingPrice: map['bookingPrice'] as int,
+      bookDuration: map['bookDuration'] as int,
+      ratings: map['ratings'].cast<int>(),
     );
   }
 }
+
+
+enum AvailabilityStatus {
+  BOOKED,
+  ON_SESSION,
+  AVAILABLE,
+}
+
