@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../values/colors.dart';
-
 class MaskedContentAnimation extends StatefulWidget {
   final Widget content;
   final List<Color> colors;

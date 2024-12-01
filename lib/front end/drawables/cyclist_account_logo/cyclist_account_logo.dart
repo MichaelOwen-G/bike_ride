@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../../back end/models/user.dart';
 import '../../providers/backend_providers/current_user_provider.dart';
-import '../../values/colors.dart';
 import '../../values/images.dart';
 
 class CyclistAccountButton extends StatefulWidget {

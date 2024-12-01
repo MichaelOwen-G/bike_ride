@@ -18,7 +18,7 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
 
   void searchQuery(String _) {
     // get query
-    String query = textEditingController.text;
+    // String query = textEditingController.text;
   }
 
   void sortByPrice(bool ascending) {
