@@ -1,4 +1,4 @@
-import 'package:bike_ride/back%20end/services/services_interface.dart';
+import 'package:bike_ride/back%20end/services/_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/rental.dart';
@@ -7,7 +7,7 @@ import '../values/firestore_collections.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 
-class RentalsServices extends ServicesInterface {
+class RentalsServices extends Services {
   RentalsServices()
       : super(
             collectionReference:
@@ -15,9 +15,12 @@ class RentalsServices extends ServicesInterface {
 
   // * ================ FETCHING AND FILTERING =============================
 
-  List<Rental> withId(String id) => docsWithId(id, Rental).cast<Rental>();
+  Future<List<Rental>> withId(String id) async {
+    List ft = await docsWithId(id, Rental);
+    return ft.cast<Rental>();
+}
 
-  List<Rental> filterWith(RentalsFilter rentalsFilter) {
+  Future<List<Rental>> filterWith(RentalsFilter rentalsFilter) async {
     Query query = collectionReference;
 
     for (Function(Query, RentalsFilter) filter in [
@@ -27,7 +30,9 @@ class RentalsServices extends ServicesInterface {
       query = filter(query, rentalsFilter);
     }
 
-    return _rating(getAllDocs(query, Rental).cast<Rental>(), rentalsFilter);
+    List ft = await getAllDocs(query, Rental);
+
+    return _rating(ft.cast<Rental>(), rentalsFilter);
   }
 
   // * find within price limits

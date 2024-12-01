@@ -1,10 +1,10 @@
-import 'package:bike_ride/back%20end/services/services_interface.dart';
+import 'package:bike_ride/back%20end/services/_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/offer.dart';
 import '../values/firestore_collections.dart';
 
-class OffersServices extends ServicesInterface {
+class OffersServices extends Services {
   final String rentalDocumentId;
 
   OffersServices({
@@ -15,7 +15,13 @@ class OffersServices extends ServicesInterface {
                 .doc(rentalDocumentId)
                 .collection(offersCollectionName));
 
-  List<Offer> getAll() => getAllDocs(collectionReference, Offer).cast<Offer>();
+  Future<List<Offer>> getAll() async {
+   List ft =  await getAllDocs(collectionReference, Offer);
+   return ft.cast<Offer>();
+  }
 
-  List<Offer> withId(String id) => docsWithId(id, Offer).cast<Offer>();
+  Future<List<Offer>> withId(String id) async {
+    List ft = await docsWithId(id, Offer);
+    return ft.cast<Offer>();
+}
 }

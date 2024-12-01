@@ -5,7 +5,7 @@ class Rental {
   String openingTime, closingTime; // in 24Hr system
   String backgroundImage, avatar; // firebase storage bucket path
   List<int> ratings; // out of 5
-  List<double> location; // length 2 of latitude, longitude
+  List<double> location; // length 2: latitude, longitude
 
   Rental({
     required this.name,

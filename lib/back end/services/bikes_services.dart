@@ -1,11 +1,11 @@
 import 'package:bike_ride/back%20end/models/bike.dart';
-import 'package:bike_ride/back%20end/services/services_interface.dart';
+import 'package:bike_ride/back%20end/services/_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 
 import '../values/firestore_collections.dart';
 
-class BikesServices extends ServicesInterface {
+class BikesServices extends Services {
   final String rentalDocumentId;
 
   BikesServices({
@@ -16,11 +16,17 @@ class BikesServices extends ServicesInterface {
                 .doc(rentalDocumentId)
                 .collection(bikesCollectionName));
 
-  List<Bike> getAll() => getAllDocs(collectionReference, Bike).cast<Bike>();
+  Future<List<Bike>> getAll() async {
+  List ft = await getAllDocs(collectionReference, Bike);
+  return ft.cast<Bike>();
+}
 
-  List<Bike> withId(String id) => docsWithId(id, Bike).cast<Bike>();
+  Future<List<Bike>> withId(String id) async {
+    List ft = await docsWithId(id, Bike);
+    return ft.cast<Bike>();
+  }
 
-  List<Bike> filterWith(String id, BikesFilter bikeFilter) {
+  Future<List<Bike>> filterWith(String id, BikesFilter bikeFilter) async {
     Query query = collectionReference;
 
     for (Function(Query, BikesFilter) filter in [
@@ -32,7 +38,9 @@ class BikesServices extends ServicesInterface {
       query = filter(query, bikeFilter);
     }
 
-    return _rating(getAllDocs(query, Bike).cast<Bike>(), bikeFilter);
+    List ft = await getAllDocs(query, Bike);
+
+    return _rating(ft.cast<Bike>(), bikeFilter);
   }
 
   Query _pricePerHour(Query query, BikesFilter bikeFilter) {

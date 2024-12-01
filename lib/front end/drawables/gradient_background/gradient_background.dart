@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../values/colors.dart';
+import '../../values/colors.dart';
 
 class MyGradientBackground extends StatelessWidget {
   final bool darkMode;
@@ -23,8 +23,8 @@ class MyGradientBackground extends StatelessWidget {
             ],
             colors: darkMode
                 ? [
-                    Colors.black.withAlpha(170),
-                    Colors.black12,
+                    black1,
+                    black2,
                   ]
                 : [
                     silver,

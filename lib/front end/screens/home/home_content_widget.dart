@@ -40,6 +40,12 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = Provider.of<CurrentUserProvider>(context).user;
+
+    return user == null ? _loadingContent() : _trueContent();
+  }
+
+  Widget _trueContent() {
     return Column(children: [
       // search bar
       Expanded(child: _searchBar()),
@@ -48,8 +54,69 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
       Expanded(child: _sortBar()),
 
       // content
-      Expanded(flex: 14, child: Container(color: Colors.white,))
+      Expanded(flex: 14, child: Container())
     ]);
+  }
+
+  Widget _trueContentCopy() {
+    return Column(children: [
+      const SizedBox(height: 18),
+      // search bar
+      Expanded(
+          child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 38),
+        color: Colors.white.withAlpha(50),
+      )),
+      const SizedBox(height: 10),
+      // sort bar
+      Expanded(
+          child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 32),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Container(height: 20, width: 70, color: Colors.white.withAlpha(50)),
+          const SizedBox(width: 30),
+          Container(height: 20, width: 70, color: Colors.white.withAlpha(50)),
+          const SizedBox(width: 30),
+          Container(height: 20, width: 70, color: Colors.white.withAlpha(50)),
+        ]),
+      )),
+
+      // content
+      Expanded(
+          flex: 14,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                Container(
+                  height: 150,
+                  color: Colors.white.withAlpha(50),
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  height: 150,
+                  color: Colors.white.withAlpha(50),
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  height: 150,
+                  color: Colors.white.withAlpha(50),
+                ),
+                const SizedBox(height: 30),
+              ],
+            ),
+          ))
+    ]);
+  }
+
+  Widget _loadingContent() {
+    /// True content wrapped in a shader mask
+    return MaskedContentAnimation(
+      content: _trueContentCopy(),
+      colors: [Colors.white.withAlpha(20), silver.withAlpha(20)],
+      duration: const Duration(milliseconds: 800),
+    );
   }
 
   Widget _sortBar() {
@@ -59,10 +126,7 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
         SortButton(
             index: 0,
             sortController: sortButtonBarController,
-            text: Text(
-              'Price',
-              style: style,
-            ),
+            text: Text('Price', style: style),
             sortFunc: sortByPrice),
         SortButton(
             index: 1,

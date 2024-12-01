@@ -34,9 +34,9 @@ class _HomeAppBarState extends State<HomeAppBar> {
           Expanded(
               flex: 4,
               child: Container()),
-          Expanded(
+          const Expanded(
             flex: 3,
-              child: const CyclistAccountButton()),
+              child: CyclistAccountButton()),
           Expanded(
               flex: 4,
               child: Container(
